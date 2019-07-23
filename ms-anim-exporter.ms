@@ -10,6 +10,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
 
     groupBox group_TimeFrame "Time Frames" pos:[10, 110] width: 300 height: 80
     radiobuttons radio_FrameType labels:#("Active Time Segment", "Range") offsets:#([0,0], [0,15]) pos:[22, 130] columns:1
+    label text_ActiveTimeSeg "0 to " pos:[160, 132]
     spinner spin_TimeFrom "From" type:#integer pos:[110, 162] width:50
     spinner spin_TimeTo "To" type:#integer pos:[200, 162] width:50
     groupBox group_ExportOptions "Export Options" pos:[10, 200] width: 300 height: 105
@@ -37,6 +38,10 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
 
     on CustomAnimationExporter open do (
         print "animation exporter opened"
+        local endFrame = animationrange.end.frame as integer;
+        text_ActiveTimeSeg.text = "0 to "+(endFrame as string)
+        spin_TimeFrom.range = [0, endFrame, 0]
+        spin_TimeTo.range = [0, endFrame, endFrame]
     )
 )
 
