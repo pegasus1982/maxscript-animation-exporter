@@ -1,0 +1,1 @@
+# maxscript-animation-exporter
