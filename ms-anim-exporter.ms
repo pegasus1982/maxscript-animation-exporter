@@ -22,10 +22,22 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     -- end rollout ui
 
     -- export button press event
-    on btn_Export pressed do(
-        press "export button pressed"
+    on btn_Export pressed do (
+        print "export button pressed"
     )
     -- end export button press event
+
+    on btn_PickCamera changed state do (
+        print state
+    )
+
+    on btn_PickObject changed state do (
+        print state
+    )
+
+    on CustomAnimationExporter open do (
+        print "animation exporter opened"
+    )
 )
 
 createdialog CustomAnimationExporter width:320 height:370
