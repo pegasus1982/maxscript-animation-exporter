@@ -5,8 +5,8 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     checkbutton btn_PickCamera "Pick Camera" pos:[22, 32] width:100
     edittext edit_TargetCamera "" pos:[130, 34] width:170
 
-    checkbutton btn_PickObject "Pick Object" pos:[22, 62] width:100
-    edittext edit_TargetObject "" pos:[130, 64] width:170
+    checkbutton btn_PickSurface "Pick Surface" pos:[22, 62] width:100
+    edittext edit_TargetSurface "" pos:[130, 64] width:170
 
     groupBox group_TimeFrame "Time Frames" pos:[10, 110] width: 300 height: 80
     radiobuttons radio_FrameType labels:#("Active Time Segment", "Range") offsets:#([0,0], [0,15]) pos:[22, 130] columns:1
@@ -22,23 +22,26 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     button btn_Export "Export" pos:[80, 320] width:160 height:30
     -- end rollout ui
 
+    global target_Surface
+    global target_Camera
+
     fn getTimeRange = (
         local range = #(0, 100)
         return range
     )
     fn getPosition = (
-        local obj = $Box001
+        local obj = target_Camera
         return obj.pos
     )
 
     fn getDir = (
-        local obj = $Box001
+        local obj = target_Camera
         return obj.dir
     )
 
     fn getDistance = (
-        local obj = $Box001
-        local cam = $Camera001
+        local obj = target_Camera
+        local cam = target_Object
     )
     -- export button press event
     on btn_Export pressed do (
@@ -60,11 +63,23 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     -- end export button press event
 
     on btn_PickCamera changed state do (
-        print state
+        if state == true do (
+            try (
+                target_Camera = pickobject propt:"Pick Camera"
+                edit_TargetCamera.text = target_Camera.name
+                btn_PickCamera.checked = false;
+            ) catch ()
+        )
     )
 
-    on btn_PickObject changed state do (
-        print state
+    on btn_PickSurface changed state do (
+        if state == true do (
+            try (
+                target_Surface = pickobject propt:"Pick surface"
+                edit_TargetSurface.text = target_Surface.name
+                btn_PickSurface.checked = false;
+            ) catch ()
+        )
     )
 
     on CustomAnimationExporter open do (
