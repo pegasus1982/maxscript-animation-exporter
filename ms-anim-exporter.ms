@@ -22,9 +22,40 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     button btn_Export "Export" pos:[80, 320] width:160 height:30
     -- end rollout ui
 
+    fn getTimeRange = (
+        local range = #(0, 100)
+        return range
+    )
+    fn getPosition = (
+        local obj = $Box001
+        return obj.pos
+    )
+
+    fn getDir = (
+        local obj = $Box001
+        return obj.dir
+    )
+
+    fn getDistance = (
+        local obj = $Box001
+        local cam = $Camera001
+    )
     -- export button press event
     on btn_Export pressed do (
         print "export button pressed"
+        local timeRange = getTimeRange()
+        print timeRange.count
+        local timeStart = timeRange[1]
+        local timeEnd = timeRange[2]
+        with animate on (
+            for i = timeStart to timeEnd do (
+                at time i (
+                    local pos = getPosition()
+                    local dir = getDir()
+                    format "time : %\npos : %\ndir : %\n\n" i pos dir
+                )
+            )
+        )
     )
     -- end export button press event
 
