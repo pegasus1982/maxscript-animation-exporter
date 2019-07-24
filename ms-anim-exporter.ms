@@ -50,7 +50,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
 
             return distance cam.pos i.pos
         ) else (
-            return -1
+            return undefined
         )
     )
 
@@ -65,7 +65,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
             diff = i.dir - dir
             return [(asin diff[1]), (asin diff[2]), (asin diff[3])]
         ) else (
-            return -1
+            return undefined
         )
     )
     -- export button press event
@@ -76,15 +76,20 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
         local timeEnd = timeRange[2]
         local i = 0
         with animate on (
-            for i = timeStart to timeEnd do (
+            -- for i = timeStart to timeEnd do (
                 at time i (
-                    local pos = getPosition()
-                    local dir = getDir()
-                    local dist = getDistance()
-                    local perpendicular = getPerpendicularValue()
+                    local pos
+                    local dir
+                    local dist
+                    local perpendicular
+
+                    if (check_ExportPosition.checked == true) do pos = getPosition()
+                    if (check_ExportOrientation.checked == true) do dir = getDir()
+                    if (check_ExportDistance.checked == true) do dist = getDistance()
+                    if (check_ExportPerpendicular.checked == true) do perpendicular = getPerpendicularValue()
                     format "time : %\npos : %\ndir : %\ndistance : %\nperpendicular : %\n\n" i pos dir dist perpendicular
                 )
-            )
+            -- )
         )
     )
     -- end export button press event
