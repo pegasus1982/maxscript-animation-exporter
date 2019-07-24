@@ -26,8 +26,12 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     global target_Camera
 
     fn getTimeRange = (
-        local range = #(0, 100)
-        return range
+        local endFrame = animationrange.end.frame as integer;
+        if (radio_FrameType.state == 1) then (
+            return [0, endFrame]
+        ) else (
+            return [0, spin_TimeTo.value]
+        )
     )
     fn getPosition = (
         local obj = target_Camera
@@ -72,6 +76,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     on btn_Export pressed do (
         print "export button pressed"
         local timeRange = getTimeRange()
+        print timeRange
         local timeStart = timeRange[1]
         local timeEnd = timeRange[2]
         local i = 0
