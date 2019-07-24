@@ -14,10 +14,10 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     spinner spin_TimeFrom "From" type:#integer pos:[110, 162] width:50
     spinner spin_TimeTo "To" type:#integer pos:[200, 162] width:50
     groupBox group_ExportOptions "Export Options" pos:[10, 200] width: 300 height: 105
-    checkbox check_ExportPosition "Position" pos:[22, 220]
-    checkbox check_ExportOrientation "Orientation" pos:[22, 240]
-    checkbox check_ExportDistance "Distance" pos:[22, 260]
-    checkbox check_ExportPerpendicular "Perpendicular Value" pos:[22, 280]
+    checkbox check_ExportPosition "Position" pos:[22, 220] checked:true
+    checkbox check_ExportOrientation "Orientation" pos:[22, 240] checked:true
+    checkbox check_ExportDistance "Distance" pos:[22, 260] checked:true
+    checkbox check_ExportPerpendicular "Perpendicular Value" pos:[22, 280] checked:true
 
     button btn_Export "Export" pos:[80, 320] width:160 height:30
     -- end rollout ui
