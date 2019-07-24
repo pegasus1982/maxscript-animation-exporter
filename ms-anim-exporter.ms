@@ -40,22 +40,33 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
     )
 
     fn getDistance = (
-        local obj = target_Camera
-        local cam = target_Object
+        obj = target_Surface
+        cam = target_Camera
+        dir = cam.dir
+        
+        testRay = Ray cam.pos (cam.dir * [-1, -1, -1])
+        i = intersectRay target_Surface testRay
+        if (i != undefined) then (
+
+            return distance cam.pos i.pos
+        ) else (
+            return -1
+        )
     )
     -- export button press event
     on btn_Export pressed do (
         print "export button pressed"
         local timeRange = getTimeRange()
-        print timeRange.count
         local timeStart = timeRange[1]
         local timeEnd = timeRange[2]
+        local i = 0
         with animate on (
             for i = timeStart to timeEnd do (
                 at time i (
                     local pos = getPosition()
                     local dir = getDir()
-                    format "time : %\npos : %\ndir : %\n\n" i pos dir
+                    local dist = getDistance()
+                    format "time : %\npos : %\ndir : %\ndistance : %\n\n" i pos dir dist
                 )
             )
         )
