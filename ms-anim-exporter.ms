@@ -53,6 +53,21 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
             return -1
         )
     )
+
+    fn getPerpendicularValue = (
+        obj = target_Surface
+        cam = target_Camera
+        dir = cam.dir
+        
+        testRay = Ray cam.pos (cam.dir * [-1, -1, -1])
+        i = intersectRay target_Surface testRay
+        if (i != undefined) then (
+            diff = i.dir - dir
+            return [(asin diff[1]), (asin diff[2]), (asin diff[3])]
+        ) else (
+            return -1
+        )
+    )
     -- export button press event
     on btn_Export pressed do (
         print "export button pressed"
@@ -66,7 +81,8 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
                     local pos = getPosition()
                     local dir = getDir()
                     local dist = getDistance()
-                    format "time : %\npos : %\ndir : %\ndistance : %\n\n" i pos dir dist
+                    local perpendicular = getPerpendicularValue()
+                    format "time : %\npos : %\ndir : %\ndistance : %\nperpendicular : %\n\n" i pos dir dist perpendicular
                 )
             )
         )
