@@ -55,7 +55,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
 
             return distance cam.pos i.pos
         ) else (
-            return undefined
+            return -1
         )
     )
 
@@ -70,7 +70,7 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
             diff = i.dir - dir
             return [(asin diff[1]), (asin diff[2]), (asin diff[3])]
         ) else (
-            return undefined
+            return [-1, -1, -1]
         )
     )
 
@@ -104,10 +104,10 @@ rollout CustomAnimationExporter "Custom Animation Exporter"
         with animate on (
             for i = timeStart to timeEnd do (
                 at time i (
-                    local pos
-                    local dir
-                    local dist
-                    local perpendicular
+                    local pos = #(0, 0, 0)
+                    local dir = #(0, 0, 0)
+                    local dist = 0
+                    local perpendicular = #(0, 0, 0)
 
                     if (check_ExportPosition.checked == true) do pos = getPosition()
                     if (check_ExportOrientation.checked == true) do dir = getDir()
